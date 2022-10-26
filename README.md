@@ -1,5 +1,5 @@
 # WPM_Intercept
-A DLL utility for intercepting WriteProcessMemory calls and dumping the buffer back to disk.
+A DLL utility for intercepting WriteProcessMemory and NtWriteVirtualMemory calls and dumping the buffer back to disk.
 
 # Usage
 - [1] Open the program that calls WriteProcessMemory.
