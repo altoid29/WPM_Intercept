@@ -3,8 +3,10 @@
 
 // --------------------------------------------------------------------------------------------------------------------------
 
-void Start() {
-    if (Globals::shouldAllocateConsole) {
+void Start()
+{
+    if (Globals::shouldAllocateConsole)
+    {
         FILE* FilePointer{};
         AllocConsole();
         freopen_s(&FilePointer, "CONOUT$", "w", stdout);
@@ -22,22 +24,26 @@ void Start() {
     const LPVOID address = (LPVOID)(GetProcAddress(GetModuleHandleA("kernel32.dll"), "WriteProcessMemory"));
     const LPVOID address2 = (LPVOID)(GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtWriteVirtualMemory"));
 
-    if (MH_Initialize() != MH_OK) {
+    if (MH_Initialize() != MH_OK)
+    {
         std::cout << "[!] Failed to initialize MH, Unloading" << std::endl;
         FreeLibraryAndExitThread(Globals::hModule, -1);
     }
 
-    if (MH_CreateHook(address2, &HookRelated::NtWriteVirtualMemoryDetour, reinterpret_cast<LPVOID*>(&HookRelated::originalNtWriteVirtualMemory)) != MH_OK) {
+    if (MH_CreateHook(address2, &HookRelated::NtWriteVirtualMemoryDetour, reinterpret_cast<LPVOID*>(&HookRelated::originalNtWriteVirtualMemory)) != MH_OK)
+    {
         std::cout << "[!] Failed to hook NtWriteVirtualMemory, Unloading" << std::endl;
         FreeLibraryAndExitThread(Globals::hModule, -1);
     }
 
-    if (MH_CreateHook(address, &HookRelated::WriteProcessMemoryDetour, reinterpret_cast<LPVOID*>(&HookRelated::originalWriteProcessMemory)) != MH_OK) {
+    if (MH_CreateHook(address, &HookRelated::WriteProcessMemoryDetour, reinterpret_cast<LPVOID*>(&HookRelated::originalWriteProcessMemory)) != MH_OK)
+    {
         std::cout << "[!] Failed to hook WriteProcessMemory, Unloading" << std::endl;
         FreeLibraryAndExitThread(Globals::hModule, -1);
     }
 
-    if (MH_EnableHook(MH_ALL_HOOKS) != MH_OK) {
+    if (MH_EnableHook(MH_ALL_HOOKS) != MH_OK)
+    {
         std::cout << "[!] Failed to enable hook, Unloading" << std::endl;
         FreeLibraryAndExitThread(Globals::hModule, -1);
     }
@@ -48,8 +54,10 @@ void Start() {
 
 // --------------------------------------------------------------------------------------------------------------------------
 
-BOOL APIENTRY DllMain(HMODULE hModule, uintptr_t attachReason, LPVOID lpReserved) {
-    if (attachReason == DLL_PROCESS_ATTACH) {
+BOOL APIENTRY DllMain(HMODULE hModule, uintptr_t attachReason, LPVOID lpReserved)
+{
+    if (attachReason == DLL_PROCESS_ATTACH)
+    {
         Globals::hModule = hModule;
 
         DisableThreadLibraryCalls(hModule);
