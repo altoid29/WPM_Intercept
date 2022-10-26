@@ -48,21 +48,22 @@ BOOL NTAPI HookRelated::NtWriteVirtualMemoryDetour(HANDLE ProcessHandle, PVOID B
     const HANDLE hFile = CreateFile(buffer, GENERIC_READ | GENERIC_WRITE, NULL, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, nullptr);
 
     if (hFile != nullptr) {
-        try {
+        if (BaseAddress != nullptr && BufferSize > 8 && Buffer > 0x0) {
+            try {
 #ifdef _WIN64
-            // Casting needed?
-            WriteFile(hFile, Buffer, BufferSize, reinterpret_cast<LPDWORD>(NumberOfBytesWritten), nullptr);
+                // Casting needed?
+                WriteFile(hFile, Buffer, BufferSize, reinterpret_cast<LPDWORD>(NumberOfBytesWritten), nullptr);
 #else
-            WriteFile(hFile, Buffer, BufferSize, NumberOfBytesWritten, nullptr);
+                WriteFile(hFile, Buffer, BufferSize, NumberOfBytesWritten, nullptr);
 #endif
 
-            std::cout << "[NT] Wrote " << BufferSize << " bytes (0x" << std::hex << BufferSize << ")" << std::dec << " from address " << "0x" << BaseAddress << std::endl;
-        }
-        catch (std::exception& error) {
+                std::cout << "[NT] Wrote " << BufferSize << " bytes (0x" << std::hex << BufferSize << ")" << std::dec << " from address " << "0x" << BaseAddress << std::endl;
+            }
+            catch (std::exception& error) {
 
         }
 
-        // Close the handle so we can open the files when we'd like.
+        // Close the handle so we can open the files.
         CloseHandle(hFile);
     }
     else
