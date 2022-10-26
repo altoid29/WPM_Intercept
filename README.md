@@ -8,3 +8,6 @@ A DLL utility for intercepting WriteProcessMemory calls and dumping the buffer b
 
 # Output
 All files are dumped as ".bin", meaning they're binary files for analysis purposes. If you've dumped a module, you can now use cmd to copy all the binaries in their corresponding order and re-create the binary from disk into a module that can now be analyzed and loaded back into memory.
+
+# To Do
+- Support for NtWriteVirtualMemory?
