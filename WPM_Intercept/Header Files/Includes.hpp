@@ -8,7 +8,8 @@
 
 #define DIRECTORY "C:\\Dumps"
 
-namespace Globals {
+namespace Globals 
+{
 	inline HMODULE hModule = nullptr;
 	inline bool shouldAllocateConsole = false;
 }
