@@ -14,6 +14,8 @@ BOOL WINAPI HookRelated::WriteProcessMemoryDetour(HANDLE hProcess, LPVOID lpBase
 
     if (FileHandle)
     {
+        // You may need to modify the size to your needs.
+        // I found that 8 works fine for ignoring false positives.
         if (lpBaseAddress != nullptr && nSize > 8 && lpBuffer > 0x0)
         {
             // Write the content to the file with WriteFile.
