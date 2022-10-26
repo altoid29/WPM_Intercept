@@ -82,4 +82,4 @@ BOOL NTAPI HookRelated::NtWriteVirtualMemoryDetour(HANDLE ProcessHandle, PVOID B
         return originalNtWriteVirtualMemory(ProcessHandle, BaseAddress, Buffer, BufferSize, NumberOfBytesWritten);
     }
 
-    // --------------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------------
