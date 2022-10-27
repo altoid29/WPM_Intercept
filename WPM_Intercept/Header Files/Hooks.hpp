@@ -4,7 +4,7 @@
 
 // --------------------------------------------------------------------------------------------------------------------------
 
-namespace HookRelated 
+namespace HookRelated
 {
 	typedef BOOL(WINAPI* WriteProcessMemoryFn)(HANDLE, LPVOID, LPCVOID, SIZE_T, SIZE_T*);
 	typedef BOOL(NTAPI* NtWriteVirtualMemoryFn)(HANDLE, PVOID, PVOID, ULONG, PULONG);

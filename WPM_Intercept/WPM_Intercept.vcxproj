@@ -187,7 +187,8 @@
     <ClCompile Include="Header Files\MH\hook.c" />
     <ClCompile Include="Header Files\MH\trampoline.c" />
     <ClCompile Include="Source Files\DllMain.cpp" />
-    <ClCompile Include="Source Files\Hooks.cpp" />
+    <ClCompile Include="Source Files\Hooks\NtWriteVirtualMemory.cpp" />
+    <ClCompile Include="Source Files\Hooks\WriteProcessMemory.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header Files\Hooks.hpp" />

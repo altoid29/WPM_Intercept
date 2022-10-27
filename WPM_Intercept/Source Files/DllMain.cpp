@@ -7,19 +7,17 @@ void Start()
 {
     if (Globals::shouldAllocateConsole)
     {
-        FILE* FilePointer{};
+        FILE* f{};
         AllocConsole();
-        freopen_s(&FilePointer, "CONOUT$", "w", stdout);
+        freopen_s(&f, "CONOUT$", "w", stdout);
+        system("cls");
     }
-
-    // Clear the console just in case.
-    system("cls");
 
     const bool directoryExists = std::filesystem::is_directory(DIRECTORY);
 
     // Create a directory to store the dumps.
     if (!directoryExists)
-        CreateDirectory(DIRECTORY, nullptr);
+        CreateDirectoryA(DIRECTORY, nullptr);
 
     const LPVOID address = (LPVOID)(GetProcAddress(GetModuleHandleA("kernel32.dll"), "WriteProcessMemory"));
     const LPVOID address2 = (LPVOID)(GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtWriteVirtualMemory"));
@@ -49,7 +47,6 @@ void Start()
     }
 
     std::cout << "[+] Initialization succeeded" << std::endl;
-    std::cout << "[+] Files are dumped in chronological order\n" << std::endl;
 }
 
 // --------------------------------------------------------------------------------------------------------------------------
@@ -62,7 +59,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, uintptr_t attachReason, LPVOID lpReserved
 
         DisableThreadLibraryCalls(hModule);
 
-        MessageBox(nullptr, "Do you want to create a console window?\nNote: If the process already has a console created press 'No'", "Confirmation", MB_YESNO) == IDYES
+        MessageBoxA(nullptr, "Do you want to create a console window?\nNote: If the process already has a console created press 'No'", "Confirmation", MB_YESNO) == IDYES
             ? Globals::shouldAllocateConsole = true
             : Globals::shouldAllocateConsole = false;
 
