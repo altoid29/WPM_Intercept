@@ -11,4 +11,3 @@ All files are dumped as ".bin", meaning they're binary files for analysis purpos
 
 # To Do
 - Discover more ways of writing to process memory. (10.26.2022)
-- Put seperate hooks in their owns files. (10.26.2022)
